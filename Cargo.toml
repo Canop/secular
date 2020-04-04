@@ -7,6 +7,7 @@ edition = "2018"
 keywords = ["stupid", "unicode", "thingie"]
 license = "MIT"
 categories = ["text-processing"]
+readme = "README.md"
 
 [features]
 ascii = []

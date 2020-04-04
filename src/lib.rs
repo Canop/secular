@@ -45,7 +45,9 @@ mod tests {
     #[test]
     fn test_normalized_lower_lay_string() {
         let s = "Comunicações"; // unnormalized string
-        assert_eq!(s.chars().count(), 14);
+        let nor = s.nfc().collect::<String>();
+        println!("{:?}", nor);
+        assert_eq!(s.chars().count(), 15);
         let s = normalized_lower_lay_string(s);
         assert_eq!(s.chars().count(), 12);
         assert_eq!(s, "comunicacoes");
