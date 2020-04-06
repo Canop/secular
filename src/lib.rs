@@ -15,8 +15,15 @@ use unicode_normalization::{
 
 /// try to return a lowercased diacritics-free version
 /// of the character.
+#[inline(always)]
 pub fn lower_lay_char(c: char) -> char {
-    LAY_CHARS.get(c as usize).map(|&c| c as char).unwrap_or(c)
+    if (c as usize) < LAY_CHARS.len() {
+        unsafe {
+            *LAY_CHARS.get_unchecked(c as usize)
+        }
+    } else {
+        c
+    }
 }
 
 /// replace every character with its lowercased diacritics-free equivalent
