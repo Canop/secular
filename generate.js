@@ -1,5 +1,7 @@
 // generate the src/data_ascii.rs and src/data_bmp.rs files used by the
 // rust library.
+// Usage:
+//     node generate.js
 
 const fs = require('fs');
 

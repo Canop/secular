@@ -1,6 +1,6 @@
 [package]
 name = "secular"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 description = "No Diacr!"
 edition = "2018"
@@ -12,7 +12,8 @@ readme = "README.md"
 [features]
 ascii = []
 bmp = []
+normalization = ["unicode-normalization"]
 default = ["ascii"]
 
 [dependencies]
-unicode-normalization = "0.1"
+unicode-normalization = { version = "0.1", optional = true }
