@@ -1,19 +1,18 @@
 [package]
 name = "secular"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 description = "No Diacr!"
 edition = "2018"
-keywords = ["stupid", "unicode", "thingie"]
+keywords = ["diacritics", "unicode", "normalization"]
 license = "MIT"
 categories = ["text-processing"]
 readme = "README.md"
 
 [features]
-ascii = []
 bmp = []
 normalization = ["unicode-normalization"]
-default = ["ascii"]
+default = []
 
 [dependencies]
 unicode-normalization = { version = "0.1", optional = true }
