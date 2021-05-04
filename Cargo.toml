@@ -1,6 +1,6 @@
 [package]
 name = "secular"
-version = "0.3.0"
+version = "1.0.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 description = "No Diacr!"
 edition = "2018"
