@@ -84,10 +84,15 @@ use unicode_normalization::{
     UnicodeNormalization,
 };
 
-/// try to return a lowercased diacritics-free version
-/// of the character.
+/// Return a lowercased diacritics-free version of the character.
+///
+/// If the character is outside of the ASCII range and the "bmp"
+/// feature wasn't included, return the same character, unchanged.
 #[inline(always)]
 pub fn lower_lay_char(c: char) -> char {
+    // this is functionally the same than
+    //      LAY_CHARS.get(c as usize).copied().unwrap_or(c)
+    // but much faster
     if (c as usize) < LAY_CHARS.len() {
         unsafe {
             *LAY_CHARS.get_unchecked(c as usize)
@@ -97,10 +102,12 @@ pub fn lower_lay_char(c: char) -> char {
     }
 }
 
-/// replace every character with its lowercased diacritics-free equivalent
+/// Replace every character with its lowercased diacritics-free equivalent
 /// whenever possible.
+///
 /// By construct, the resulting string is guaranteed to have the same number
 /// of characters as the input one (it may be smaller in bytes but not larger).
+///
 /// This function doesn't do any normalization. It's thus necessary to ensure
 /// the string is already normalized.
 pub fn lower_lay_string(s: &str) -> String {
@@ -109,7 +116,7 @@ pub fn lower_lay_string(s: &str) -> String {
         .collect()
 }
 
-/// normalize the string then replace every character with its
+/// Normalize the string then replace every character with its
 /// lowercased diacritics-free equivalent whenever possible.
 #[cfg(feature = "normalization")]
 pub fn normalized_lower_lay_string(s: &str) -> String {
@@ -121,6 +128,8 @@ pub fn normalized_lower_lay_string(s: &str) -> String {
 
 // To test, run
 //     cargo test --features="bmp, normalization"
+// or
+//     bacon test
 #[cfg(all(test, feature="normalization"))]
 mod tests {
     use super::*;
