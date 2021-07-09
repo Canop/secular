@@ -90,13 +90,11 @@ use unicode_normalization::{
 /// feature wasn't included, return the same character, unchanged.
 #[inline(always)]
 pub fn lower_lay_char(c: char) -> char {
-    // this is functionally the same than
-    //      LAY_CHARS.get(c as usize).copied().unwrap_or(c)
-    // but much faster
-    if (c as usize) < LAY_CHARS.len() {
-        unsafe {
-            *LAY_CHARS.get_unchecked(c as usize)
-        }
+    // This implementation has been chosen after many benchmarks.
+    // Constructs based on unwrap_or seem to be badly optimized
+    // when the function is inlined in a big one.
+    if let Some(c) = LAY_CHARS.get(c as usize) {
+        *c
     } else {
         c
     }
@@ -110,6 +108,7 @@ pub fn lower_lay_char(c: char) -> char {
 ///
 /// This function doesn't do any normalization. It's thus necessary to ensure
 /// the string is already normalized.
+#[inline(always)]
 pub fn lower_lay_string(s: &str) -> String {
     s.chars()
         .map(|c| lower_lay_char(c))
@@ -119,6 +118,7 @@ pub fn lower_lay_string(s: &str) -> String {
 /// Normalize the string then replace every character with its
 /// lowercased diacritics-free equivalent whenever possible.
 #[cfg(feature = "normalization")]
+#[inline(always)]
 pub fn normalized_lower_lay_string(s: &str) -> String {
     s.nfc()
         .map(|c| lower_lay_char(c))
