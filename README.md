@@ -58,20 +58,24 @@ This feature is optional so that you can avoid importing the unicode-normalizati
 
 On characters:
 
-	use secular::*;
-        let s = "Comunicações"; // normalized string (length=12)
-        let chars: Vec<char> = s.chars().collect();
-        assert_eq!(chars.len(), 12);
-        assert_eq!(chars[0], 'C');
-        assert_eq!(lower_lay_char(chars[0]), 'c');
-        assert_eq!(chars[8], 'ç');
-        assert_eq!(lower_lay_char(chars[8]), 'c');
+```rust
+use secular::*;
+let s = "Comunicações"; // normalized string (length=12)
+let chars: Vec<char> = s.chars().collect();
+assert_eq!(chars.len(), 12);
+assert_eq!(chars[0], 'C');
+assert_eq!(lower_lay_char(chars[0]), 'c');
+assert_eq!(chars[8], 'ç');
+assert_eq!(lower_lay_char(chars[8]), 'c');
+```
 
 On strings:
 
-	use secular::*;
-	let s = "Comunicações"; // unnormalized string (length=14)
-        assert_eq!(s.chars().count(), 14);
-        let s = normalized_lower_lay_string(s);
-        assert_eq!(s.chars().count(), 12);
-        assert_eq!(s, "comunicacoes");
+```rust
+use secular::*;
+let s = "Comunicações"; // unnormalized string (length=14)
+assert_eq!(s.chars().count(), 14);
+let s = normalized_lower_lay_string(s);
+assert_eq!(s.chars().count(), 12);
+assert_eq!(s, "comunicacoes");
+```
