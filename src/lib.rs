@@ -57,17 +57,19 @@
 //! assert_eq!(chars[8], 'ç');
 //! assert_eq!(lower_lay_char(chars[8]), 'c');
 //! ```
-//!
-//! On strings:
-//!
-//! ```
-//! use secular::*;
-//! let s = "Comunicações"; // unnormalized string (length=14)
-//! assert_eq!(s.chars().count(), 14);
-//! let s = normalized_lower_lay_string(s);
-//! assert_eq!(s.chars().count(), 12);
-//! assert_eq!(s, "comunicacoes");
-//! ```
+#[cfg_attr(feature = "normalization", doc=r##")]
+
+On strings:
+
+```
+use secular::*;
+let s = "Comunicações"; // unnormalized string (length=14)
+assert_eq!(s.chars().count(), 14);
+let s = normalized_lower_lay_string(s);
+assert_eq!(s.chars().count(), 12);
+assert_eq!(s, "comunicacoes");
+```
+"##)]
 
 #[cfg(not(feature = "bmp"))]
 mod data_ascii;
